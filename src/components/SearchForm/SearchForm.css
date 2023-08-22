@@ -1,0 +1,112 @@
+.search-form {
+    padding: 70px 0 48px;
+}
+
+.search-form__input {
+    padding: 0;
+    font-size: 28px;
+    font-weight: 500;
+    border: 0;
+    outline: none;
+    width: calc(100% - 59px);
+}
+
+.search-form__input::placeholder {
+    color: #A0A0A0;
+}
+
+.search-form__input:-ms-input-placeholder {
+    color: #A0A0A0;
+}
+
+.search-form__input::-ms-input-placeholder {
+    color: #A0A0A0;
+}
+
+.search-form__custom-checkbox {
+    width: 36px;
+    height: 20px;
+    border: 0;
+    background: url(../../images/checkbox-disable.svg) center no-repeat;
+}
+
+.search-form__checkbox {
+    display: none;
+}
+
+.search-form__filter {
+    display: flex;
+    cursor: pointer;
+}
+
+.search-form__checkbox:checked ~ .search-form__filter .search-form__custom-checkbox{
+    background: url(../../images/checkbox-active.svg);
+}
+
+
+.search-form__submit-btn {
+    background-color: #3456F3;
+    color: white;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 18px;
+    width: 59px;
+    height: 34px;
+    border: 0;
+    border-radius: 48px;
+    cursor: pointer;
+    transition: .3s opacity;
+}
+
+.search-form__submit-btn:hover {
+    opacity: .8;
+}
+
+.search-form__seacrh-line {
+    height: 34px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 33px;
+}
+
+.search-form__checkbox-title {
+    display: inline;    
+    margin: 0 16px 0 14px;;
+    font-size: 13px;
+    line-height: 18px; 
+}
+
+@media (max-width: 800px) {
+    .search-form {
+        padding: 80px 0 61px;
+    }
+
+    .search-form__filter {
+        flex-direction: row-reverse;
+    }
+}
+
+@media (max-width: 500px) {
+    .search-form {
+        padding: 84px 4px 51px;
+    }
+
+    .search-form__input {
+        font-size: 18px;
+    }
+
+    .search-form__seacrh-line {
+        margin-bottom: 41px;
+    }
+
+    .search-form__filter {
+        justify-content: center;
+    }
+
+    .search-form__checkbox-title {
+        margin-right: 13px;
+    }
+}

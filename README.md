@@ -1,1 +1,1 @@
-# movies-explorer-frontend
+Шаблон: light-1

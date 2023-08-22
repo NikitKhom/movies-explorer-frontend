@@ -1,5 +1,5 @@
 .header {
-    padding: 7px 70px;
+    padding: 15px 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +46,7 @@
 
 @media (max-width: 800px) {
     .header {
-        padding: 7px 30px;
+        padding: 15px 30px;
     }
 
     .header__menu-content {
@@ -106,7 +106,7 @@
     }
 
     .header {
-        padding: 5px 14px;
+        padding: 15 px 14px;
     }
 }
 

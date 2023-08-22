@@ -5,7 +5,7 @@ function PageNotFound() {
         <div className='page-not-found'>
                 <h1 className='page-not-found__title'>404</h1>
                 <p className='page-not-found__subtitle'>Страница не найдена</p>
-            <a className='page-not-found__go-back-btn' href='http.com'>Назад</a>
+            <NavLink className='page-not-found__go-back-btn' to='../'>Назад</NavLink>
         </div>
     )
 }

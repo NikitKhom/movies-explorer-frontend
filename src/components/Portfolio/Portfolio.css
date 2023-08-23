@@ -1,0 +1,171 @@
+.portfolio__main-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 66px 0 101px;
+    position: relative;
+}
+
+.portfolio__info {
+    max-width: 600px;
+}
+
+.portfolio__my-photo {
+    min-width: 270px;
+    height: 327px;
+    border-radius: 10px;
+    background: url(../../images/avatar.jpg);
+    background-repeat: no-repeat;
+    background-size: 140%;
+    background-position: center;
+    margin-left: 50px;
+}
+
+.portfolio__name {
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+    margin: 0;
+}
+
+.portfolio__about {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 18px 0 26px;
+}
+
+.portfolio__main-text {
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+}
+
+.portfolio__link {
+    transition: opacity .3s;
+}
+
+.portfolio__link:hover {
+    opacity: .7;
+}
+
+.portfolio__github-link {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.portfolio__title {
+    color: #A0A0A0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0 0 50px;
+}
+
+.portfolio__projects-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.portfolio__link-container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 19px;
+    margin-bottom: 20px;
+}
+
+.portfolio__link-container:last-child {
+    margin-bottom: 15;
+}
+
+.porfolio__project-link {
+    color: black;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 50px;
+    letter-spacing: -1.2px;
+    text-decoration: none;
+}
+
+@media (max-width: 1150px) {
+    .portfolio__name {
+        font-size: 40px;
+        line-height: 100%;
+        letter-spacing: -1.6px;
+    }
+
+    .portfolio__about {
+        font-size: 12px;
+        line-height: 150%;
+        margin: 16px 0 20px;
+    }
+
+    .portfolio__main-text {
+        font-size: 12px;
+        line-height: 150%;
+    }
+
+    .portfolio__my-photo {
+        width: 255px;
+        height: 307px;
+    }
+
+    .portfolio__main-info {
+        margin-bottom: 91px;
+    }
+
+    .porfolio__project-link {
+        font-size: 28px;
+        line-height: 179%;
+        letter-spacing: -1.12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .portfolio__main-info {
+        flex-wrap: wrap-reverse;
+        justify-content: center;
+        margin: 60px 0 70px;
+        padding-bottom: 54px;
+    }
+
+    .portfolio__my-photo {
+        margin: 0 0 40px;
+        width: 292px;
+        height: 352px;
+    }
+
+    .portfolio__name {
+        font-size: 30px;
+        letter-spacing: -1.2px;
+    }
+
+    .portfolio__about {
+        font-size: 11px;
+        line-height: 145%;
+        margin: 20px 0;
+    }
+
+    .portfolio__main-text {
+        font-size: 11px;
+        line-height: 145%;
+    }
+
+    .portfolio__title {
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+    .porfolio__project-link {
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: -0.72px;
+    }
+}

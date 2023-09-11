@@ -16,16 +16,23 @@ function Portfolio() {
                 <h3 className='portfolio__title'>Портфолио</h3>
                 <ul className='portfolio__projects-list'>
                     <li className='portfolio__link-container'>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/how-to-learn' target='_blank' rel='noreferrer'>Статичный сайт</a>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/how-to-learn' target='_blank' rel='noreferrer'>↗</a>
+                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/how-to-learn' target='_blank' rel='noreferrer'>
+                            <p className='portfolio__link-text'>Статичный сайт</p>
+                            <p className='portfolio__link-text'>↗</p>
+                        </a>
                     </li>
                     <li className='portfolio__link-container'>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/russian-travel' target='_blank' rel='noreferrer'>Адаптивный сайт</a>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/russian-travel' target='_blank' rel='noreferrer'>↗</a>
+                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/russian-travel' target='_blank' rel='noreferrer'>
+                            <p className='portfolio__link-text'>Адаптивный сайт</p>
+                            <p className='portfolio__link-text'>↗</p>
+                        </a>
+
                     </li>
                     <li className='portfolio__link-container'>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/react-mesto-api-full-gha' target='_blank' rel='noreferrer'>Одностраничное приложение</a>
-                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/react-mesto-api-full-gha' target='_blank' rel='noreferrer'>↗</a>
+                        <a className='portfolio__link porfolio__project-link' href='https://github.com/NikitKhom/react-mesto-api-full-gha' target='_blank' rel='noreferrer'>
+                            <p className='portfolio__link-text'>Одностраничное приложение</p>
+                            <p className='portfolio__link-text'>↗</p>
+                        </a>
                     </li>
                 </ul>
         </Section>

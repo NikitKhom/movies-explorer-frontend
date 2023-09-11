@@ -1,44 +1,82 @@
 import Header from '../Header/Header';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useContext, useState } from 'react';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { useNavigate } from 'react-router-dom';
 
-function Profile({name, email}) {
-    const [formValue, setFormValue] = useState({ name, email });
-
+function Profile({ handleUpdateUser }) {
+    const currentUser = useContext(CurrentUserContext);
+    const [formValue, setFormValue] = useState({
+        email: currentUser.email,
+        name: currentUser.name,
+    }) 
     function handleChange(e) {
         const {name, value} = e.target;
         setFormValue({
-          ...formValue,
-          [name]: value
+            ...formValue,
+            [name]: value
         });
-    }
+	}
+    const navigate = useNavigate();
+    
+    const isDisabled = (!formValue.name || !formValue.email)
+        || (formValue.name === currentUser.name && formValue.email === currentUser.email);
+
+    useEffect(() => {
+        setFormValue({
+            email: currentUser.email,
+            name: currentUser.name,
+        }) ;
+    }, [])
+
+    function signOut(){
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('movies');
+        localStorage.removeItem('checkbox');
+        localStorage.removeItem('search');
+        navigate('/sign-in', {replace: true});
+      }
+    
+    // function handleChange(e) {
+    //     const {name, value} = e.target;
+    //     setFormValue({
+    //         ...formValue,
+    //         [name]: value
+    //     });
+	// }
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!formValue.password || !formValue.email) {
+        if (isDisabled) {
             return;
         }
+        handleUpdateUser({
+            name: formValue.name,
+            email: formValue.email
+        })
     }
 
     return (
         <>
             <Header></Header>
             <main className='profile'>
-                <h1 className='profile__welcome'>Привет, {formValue.name}!</h1>
+                <h1 className='profile__welcome'>Привет, {currentUser.name}!</h1>
                 <form className='profile__form'>
                     <fieldset className='profile__fieldset'>
                         <div className='profile__block'>
                             <h2 className='profile__block-title'>Имя</h2>
-                            <input className='profile__info' name='name' value={formValue.name} onChange={handleChange}></input>
+                            <input className='profile__info' name='name' type='text' value={formValue.name} onChange={handleChange} required autoComplete='off'></input>
                         </div>
                         <div className='profile__block'>
                             <h2 className='profile__block-title'>E-mail</h2>
-                            <input className='profile__info' name='email' value={formValue.email} onChange={handleChange}></input>
+                            <input className='profile__info' name='email' type='email' value={formValue.email} onChange={handleChange} required autoComplete='off'></input>
                         </div>
-                    </fieldset> 
-                    <button className='profile__submit-btn' onClick={handleSubmit}>Редактировать</button>
+                    </fieldset>
+                    {isDisabled 
+                    ? <button className='profile__submit-btn profile__submit-btn_disabled' onClick={handleSubmit} disabled>Редактировать</button>
+                    : <button className='profile__submit-btn' onClick={handleSubmit}>Редактировать</button>}
+                    
                 </form>
-                <Link to='/' className='profile__logout-btn'>Выйти из аккаунта</Link>
+                <button className='profile__logout-btn' onClick={signOut}>Выйти из аккаунта</button>
             </main>
         </>
 

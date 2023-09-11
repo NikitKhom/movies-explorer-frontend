@@ -36,10 +36,20 @@
     bottom: 0;
     cursor: pointer;
     transition: .3s opacity;
+    outline: none;
 }
 
 .auth-form__button:hover {
     opacity: .8;
+}
+
+.auth-form__button_disabled {
+    background-color: #E8E8E8;
+    cursor: default;
+}
+
+.auth-form__button_disabled:hover {
+    opacity: 1;
 }
 
 .auth-form__message {

@@ -62,8 +62,12 @@
     border: 0;
 }
 
+.profile__submit-btn_disabled {
+    cursor: default;
+    color: #E8E8E8;
+}
+
 .profile__logout-btn {
-    display: block;
     color: #FF3055;
     text-align: center;
     font-size: 13px;
@@ -71,6 +75,15 @@
     width: 150px;
     margin: 16px auto 0;
     text-decoration: none;
+    transition: .3s opacity;
+    border: 0;
+    background: transparent;
+    display: block;
+    cursor: pointer;
+}
+
+.profile__logout-btn:hover, .profile__submit-btn:hover {
+    opacity: .7;
 }
 
 @media (max-width: 800px) {

@@ -17,13 +17,14 @@
 }
 
 .card__title {
+    display: block;
     text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
     font-size: 13px;
     font-weight: 500;
     margin: 0;
-    max-width: 80%;
+    width: 120px;
 }
 
 .card__duration {
@@ -54,4 +55,16 @@
 
 .card__button:hover {
     opacity: .8;
+}
+
+@media (max-width: 800px) {
+    .card__title {
+        width: 200px;
+    }
+}
+
+@media (max-width: 800px) {
+    .card__title {
+        width: 180px;
+    }
 }

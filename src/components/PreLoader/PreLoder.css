@@ -1,0 +1,10 @@
+.preloader {
+    text-align: center;
+    display: none;
+    color: #A0A0A0;
+    font-weight: 500;
+}
+
+.preloader_active {
+    display: block;
+}

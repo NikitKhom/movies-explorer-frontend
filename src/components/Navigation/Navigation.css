@@ -2,8 +2,12 @@
     display: flex;
 }
 
+.navigation_theme_blue {
+    color: white;
+}
+
 .navigation__title {
-    color: #000;
+    color: inherit;
     font-size: 13px;
     line-height: 18px;
     text-decoration: none;
@@ -28,6 +32,7 @@
 
 @media (max-width: 800px) {
     .navigation {
+        color: black;
         flex-direction: column;
         align-items: center;
     }
@@ -49,6 +54,5 @@
     
     .navigation__title_active {
         border-bottom: 2px solid black;
-
     }
 }

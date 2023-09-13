@@ -5,10 +5,10 @@ import Techs from '../Techs/Techs';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main({ loggedIn }) {
     return (
         <>
-            <Promo></Promo>
+            <Promo loggedIn={loggedIn}/>
             <main>
                 <AboutProject></AboutProject>
                 <Techs></Techs>

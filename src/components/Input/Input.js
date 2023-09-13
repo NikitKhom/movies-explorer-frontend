@@ -7,7 +7,6 @@ function Input({
     minLength,
     maxLength,
     value,
-    pattern,
     errorValue,
     }) 
     {
@@ -23,7 +22,6 @@ function Input({
                 minLength={minLength}
                 maxLength={maxLength}
                 value={value}
-                pattern={pattern}
                 />
             <span className='input__error'>{errorValue}</span>
         </label>

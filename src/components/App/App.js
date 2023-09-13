@@ -32,7 +32,6 @@ function App() {
   useEffect(() => {
     handleTokenCheck();
     handleLoadMainInfo();
-    handleLoadMovies();
   }, []);
 
   function handleLoadMainInfo() {
@@ -94,17 +93,27 @@ function App() {
   function handleRegister({ name, email, password }) {
     setIsUserSending(true)
       auth.register(name, email, password)
-        .then((res) => {
-            if (res.data) {
-                openPopupCompleteRegister(true);
-                navigate("/sign-in", { replace: true });
+      .then((res) => {
+        auth.authorize(email, res.password)
+        .then((data) => {
+            if (data.token) {
+                mainApi.setToken(data.token);
+                setLoggedIn(true);
+                handleLoadMainInfo();
+                navigate('/movies', { replace: true });
+                openPopupCompleteRegister();
             }
         })
         .catch((err) => {
-            console.log(err);
-            openPopupError();
+          console.log(err);
+          openPopupError();
         })
-        .finally(() => setIsUserSending(false));
+      })
+      .catch((err) => {
+          console.log(err);
+          openPopupError();
+      })
+      .finally(() => setIsUserSending(false));
   }
 
   function handleUpdateUser({ name, email }) {
@@ -150,8 +159,6 @@ function App() {
     .catch((err) => console.log(err));
   }
 
-  
-
   function openPopupCompleteRegister() {
     setPopupComplete({
       isOpen: true,
@@ -179,7 +186,13 @@ function App() {
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path='/' element={ <Main /> }/>
+          <Route
+            path='/'
+            element={ 
+              <Main 
+                loggedIn={loggedIn}
+              />
+              }/>
 
           <Route
             path='/sign-up'
@@ -222,6 +235,7 @@ function App() {
                 handleSaveCard={handleSaveCard}
                 userMovies={userMovies}
                 handleDeleteCard={handleDeleteCard}
+                handleLoadMovies={handleLoadMovies}
               />
             }
           />
@@ -232,6 +246,7 @@ function App() {
               <ProtectedRouteElement
                 element={ Profile }
                 loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
                 handleUpdateUser={handleUpdateUser}
               />
             }

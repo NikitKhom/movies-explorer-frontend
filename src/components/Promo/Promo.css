@@ -1,13 +1,14 @@
 .promo {
     background-color: #073042;
-    padding: 18px 70px 75px;
+    padding: 75px 70px 75px;
     color: white;
 }
 
-.promo__auth {
+.promo__header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 93px;
+    padding: 18px 70px 18px;
+    background-color: #073042;
 }
 
 .promo__buttons {
@@ -99,16 +100,17 @@
 
 @media (max-width: 1150px) {
     .promo {
-        padding: 18px 30px 75px;
+        padding: 75px 30px 75px;
     }
+
+    .promo__header {
+        padding: 18px 30px 18px;
+    }
+
     .promo__banner{
         flex-direction: column-reverse;
         align-items: center;
         margin-bottom: 88px;
-    }
-
-    .promo__auth {
-        margin-bottom: 150px;
     }
 
     .promo__image {
@@ -135,7 +137,11 @@
 
 @media (max-width: 500px) {
     .promo {
-        padding: 18px 14px 30px;
+        padding: 75px 14px 30px;
+    }
+
+    .promo__header {
+        padding: 18px 14px 18px;
     }
 
     .promo__button_type_signin {
@@ -155,10 +161,6 @@
         width: 210px;
         height: 206px;
         margin-bottom: 44px;
-    }
-
-    .promo__auth {
-        margin-bottom: 88px;
     }
 
     .promo__title {

@@ -3,7 +3,7 @@ import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useNavigate } from 'react-router-dom';
 
-function Profile({ handleUpdateUser }) {
+function Profile({ handleUpdateUser, setLoggedIn }) {
     const currentUser = useContext(CurrentUserContext);
     const [formValue, setFormValue] = useState({
         email: currentUser.email,
@@ -25,24 +25,14 @@ function Profile({ handleUpdateUser }) {
         setFormValue({
             email: currentUser.email,
             name: currentUser.name,
-        }) ;
+        });
     }, [])
 
-    function signOut(){
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('movies');
-        localStorage.removeItem('checkbox');
-        localStorage.removeItem('search');
+    function signOut() {
+        localStorage.clear();
+        setLoggedIn(false);
         navigate('/sign-in', {replace: true});
       }
-    
-    // function handleChange(e) {
-    //     const {name, value} = e.target;
-    //     setFormValue({
-    //         ...formValue,
-    //         [name]: value
-    //     });
-	// }
 
     function handleSubmit(e) {
         e.preventDefault();

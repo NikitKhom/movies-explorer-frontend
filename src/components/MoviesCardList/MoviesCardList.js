@@ -4,14 +4,13 @@ import Card from '../Card/Card';
 
 function MoviesCardList({ 
     cards,
-    apiRes=false,
     isNoCards=false,
     handleSaveCard,
     handleDeleteCard,
     isMoviesSaved = false,
-    userMovies 
+    userMovies, 
+    message='Фильмов пока нет'
     }) {
-    const [message, setMessage] = useState('');
     const [isOnPage, setIsOnPage] = useState(isNoCards);
     const [renderMoreButton, setRenderMoreButton] = useState(false);
     const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
@@ -22,13 +21,6 @@ function MoviesCardList({
         setAdditionalRows(0);
         if (cards.length === 0) {
             setIsOnPage(true);
-            setMessage('Ничего не найдено');
-            if (!apiRes) {
-                setMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-            }
-            if (isMoviesSaved) {
-                setMessage('Пока фильмов нет')
-            }
         } else {
             setIsOnPage(false);
         }

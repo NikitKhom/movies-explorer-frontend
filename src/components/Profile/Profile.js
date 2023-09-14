@@ -31,7 +31,7 @@ function Profile({ handleUpdateUser, setLoggedIn }) {
     function signOut() {
         localStorage.clear();
         setLoggedIn(false);
-        navigate('/sign-in', {replace: true});
+        navigate('/', {replace: true});
       }
 
     function handleSubmit(e) {

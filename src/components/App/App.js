@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile';
 import PopupComplete from '../PopupComplete/PopupComplete';
 import PopupError from '../PopupError/PopupError';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/auth';
@@ -16,7 +16,6 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 
 function App() {
-
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -24,11 +23,12 @@ function App() {
       name: '',
       email: '',
   });
-  const navigate = useNavigate();
   const [popupComplete, setPopupComplete] = useState({ isOpen: false, title: '' });
   const [popupError, setPopupError] = useState({ isOpen: false });
   const [isUserSending, setIsUserSending] = useState(false);
   const [isMoviesApiResponded, setIsMoviesApiResponded] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation()
   useEffect(() => {
     handleTokenCheck();
     handleLoadMainInfo();
@@ -63,8 +63,10 @@ function App() {
                   mainApi.setToken(localStorage.getItem('jwt'));
                   handleLoadMainInfo();
                   setLoggedIn(true);
-                  if (res.data) {
-                      navigate('/movies', { replace: true });
+                  if (location.pathname === '/sign-in' || location.pathname === '/sign-up') {
+                    navigate('/movies');
+                  } else {
+                    navigate(`${location.pathname}`);
                   }
               }
           })
@@ -94,7 +96,7 @@ function App() {
     setIsUserSending(true)
       auth.register(name, email, password)
       .then((res) => {
-        auth.authorize(email, res.password)
+        auth.authorize(email, password)
         .then((data) => {
             if (data.token) {
                 mainApi.setToken(data.token);

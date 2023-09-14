@@ -23,6 +23,9 @@
     display: block;
     font-size: 14px;
     text-decoration: none;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 @media (max-width: 500px) {

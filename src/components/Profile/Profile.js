@@ -1,7 +1,7 @@
 import Header from '../Header/Header';
 import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Profile({ handleUpdateUser, setLoggedIn }) {
     const currentUser = useContext(CurrentUserContext);
@@ -17,7 +17,7 @@ function Profile({ handleUpdateUser, setLoggedIn }) {
         });
 	}
     const navigate = useNavigate();
-    
+    const location = useLocation();
     const isDisabled = (!formValue.name || !formValue.email)
         || (formValue.name === currentUser.name && formValue.email === currentUser.email);
 
@@ -26,7 +26,7 @@ function Profile({ handleUpdateUser, setLoggedIn }) {
             email: currentUser.email,
             name: currentUser.name,
         });
-    }, [])
+    }, [location.pathname, currentUser])
 
     function signOut() {
         localStorage.clear();

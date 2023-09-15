@@ -1,24 +1,51 @@
 import AuthForm from '../AuthForm/AuthForm';
 import Input from '../Input/Input';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormWithValidation } from '../../hooks/formValidation';
+import { EMAIL_REGEX } from '../../utils/constants';
 
 function Register( {handleRegister, isSending} ) {
     const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
+    const [ email, setEmail ] = useState('');
+    const [ emailError, setEmailError ] = useState('');
+    const [ emailValid, setEmailValid ] = useState(false);
 
     useEffect(() => {
+        resetEmailInput();
         resetForm();
-    }, [])
+    }, []);
+
+
+    const resetEmailInput = () => {
+        setEmail('');
+        setEmailError('');
+        setEmailValid(false);
+    }
+
+    const handleEmailChange = (e) => {  //Валидирую email отдельно, так как валидация инпута по умолчанию пропускает неверные значения
+        const currentValue = e.target.value;
+        setEmail(currentValue);
+        if (currentValue === '') {
+            setEmailError('Заполните это поле.');
+            setEmailValid(false);
+        } else if (!EMAIL_REGEX.test(currentValue)) {
+            setEmailError('E-mail указан некорректно');
+            setEmailValid(false);
+        } else {
+            setEmailError('');
+            setEmailValid(true);
+        }
+    }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!values.name || !values.email || !values.password){
+        if (!values.name || !email || !values.password){
           return;
         }
         handleRegister({
             name: values.name,
-            email: values.email,
+            email: email,
             password: values.password,
         })
     }
@@ -28,7 +55,7 @@ function Register( {handleRegister, isSending} ) {
             isRegister={true}
             buttonText={isSending ? '...' : 'Регистрация'}
             onSubmit={handleSubmit}
-            isDisabled={!isValid || isSending}>
+            isDisabled={!isValid || isSending || !emailValid}>
                 <Input
                     title='Имя'
                     id='name'
@@ -45,11 +72,11 @@ function Register( {handleRegister, isSending} ) {
                     id='email'
                     name='email'
                     type='email'
-                    onChange={handleChange}
+                    onChange={handleEmailChange}
                     minLength='5'
                     maxLength='40'
-                    value={values.email || ''}
-                    errorValue={errors.email || ''}
+                    value={email || ''}
+                    errorValue={emailError || ''}
                 />
                 <Input
                     title='Пароль'

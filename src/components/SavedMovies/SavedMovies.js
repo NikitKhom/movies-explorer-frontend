@@ -5,14 +5,17 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 
 function SavedMovies({ userMovies, handleDeleteCard }) {
-
     const [checked, setChecked] = useState(false);
     const [formValue, setFormValue] = useState({
         search: '',
 	});
     const [cards, setCards] = useState(userMovies);
+    const [message, setMessage] = useState('Пока фильмов нет');
     useEffect(() => {
         filterMovies();
+        if (userMovies.length === 0) {
+            setMessage('Фильмов пока нет');
+        }
     }, [checked, userMovies]);
 
 	function handleChange(e) {
@@ -35,14 +38,17 @@ function SavedMovies({ userMovies, handleDeleteCard }) {
             const nameRU = movie.nameRU.toLowerCase();
             const nameEN = movie.nameEN.toLowerCase();
             if (nameRU.indexOf(formValue.search.toLowerCase()) >= 0
-                || nameEN.indexOf(formValue.search.toLowerCase())) {
+                || nameEN.indexOf(formValue.search.toLowerCase()) >= 0) {
                 if (checked && movie.duration > 40) {
                     continue;
                 }
-                foundCards.push(JSON.stringify(movie));
+                foundCards.push(movie);
             }
         }
         setCards(foundCards);
+        if (foundCards.length === 0) {
+            setMessage('Ничего не найдено');
+        }
     }
 
 	function handleSubmit(e) {
@@ -65,6 +71,7 @@ function SavedMovies({ userMovies, handleDeleteCard }) {
                     isMoviesSaved={true}
                     cards={cards}
                     handleDeleteCard={handleDeleteCard}
+                    message={message}
                 />
             </main>
             <Footer></Footer>

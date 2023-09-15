@@ -2,12 +2,15 @@
 function Card({ card, handleSaveCard, userMovies, isMovieSaved = false, handleDeleteCard }) {
     const title = card.nameRU;
     const duration = card.duration;
+    let trailer = '';
     let isLiked = false;
     let link = '';
     if (isMovieSaved) {
         link = card.image;
+        trailer = card.trailer;
     } else {
         link = card.link;
+        trailer = card.trailerLink;
         const movie = userMovies.find(c => c.movieId === card.id);
         if (movie) {
             card._id = movie._id;
@@ -34,7 +37,9 @@ function Card({ card, handleSaveCard, userMovies, isMovieSaved = false, handleDe
 
     return (
         <li className='card'>
-            <img className='card__image' src={link} alt={title}></img>
+            <a href={trailer} target='_blank' rel='noreferrer' className='card__trailer-link'>
+                <img className='card__image' src={link} alt={title}></img>
+            </a>
             <div className='card__container'>
             <h2 className='card__title'>{title}</h2>
             {

@@ -1,4 +1,3 @@
-import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
 function AuthForm({ 
     title,
@@ -11,7 +10,7 @@ function AuthForm({
     {
     return(
         <div className='auth-form'>
-            <img className='auth-form__logo' src={logo} alt='Логотип сайта'></img>
+            <Link className='auth-form__logo' to='/'/>
             <h1 className='auth-form__title'>{title}</h1>
             <form
                 className='auth-form__form'

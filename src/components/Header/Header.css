@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.header_theme_blue {
+    background-color: #073042;
+}
+
 .header__logo {
     width: 38px;
     height: 38px;
@@ -19,8 +23,6 @@
 .header__menu-open, .header__menu, .header__burger{
     display: none;
 }
-
-
 
 .header__close-button {
     background: transparent url(../../images/close-icon.svg) center no-repeat;
@@ -37,8 +39,6 @@
 .header__close-button:hover {
     opacity: .8;
 }
-
-
 
 .header__menu-content {
     display: none;
@@ -72,6 +72,10 @@
         border: 0;
         transition: .3s opacity;
         cursor: pointer;
+    }
+
+    .header__burger_theme_blue {
+        background: transparent url(../../images/burger-white-icon.svg) center no-repeat;
     }
 
     .header__burger:hover {

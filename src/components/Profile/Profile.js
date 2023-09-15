@@ -1,9 +1,9 @@
 import Header from '../Header/Header';
 import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function Profile({ handleUpdateUser }) {
+function Profile({ handleUpdateUser, setLoggedIn }) {
     const currentUser = useContext(CurrentUserContext);
     const [formValue, setFormValue] = useState({
         email: currentUser.email,
@@ -17,7 +17,7 @@ function Profile({ handleUpdateUser }) {
         });
 	}
     const navigate = useNavigate();
-    
+    const location = useLocation();
     const isDisabled = (!formValue.name || !formValue.email)
         || (formValue.name === currentUser.name && formValue.email === currentUser.email);
 
@@ -25,24 +25,14 @@ function Profile({ handleUpdateUser }) {
         setFormValue({
             email: currentUser.email,
             name: currentUser.name,
-        }) ;
-    }, [])
+        });
+    }, [location.pathname, currentUser])
 
-    function signOut(){
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('movies');
-        localStorage.removeItem('checkbox');
-        localStorage.removeItem('search');
-        navigate('/sign-in', {replace: true});
+    function signOut() {
+        localStorage.clear();
+        setLoggedIn(false);
+        navigate('/', {replace: true});
       }
-    
-    // function handleChange(e) {
-    //     const {name, value} = e.target;
-    //     setFormValue({
-    //         ...formValue,
-    //         [name]: value
-    //     });
-	// }
 
     function handleSubmit(e) {
         e.preventDefault();

@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile';
 import PopupComplete from '../PopupComplete/PopupComplete';
 import PopupError from '../PopupError/PopupError';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/auth';
@@ -16,7 +16,6 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 
 function App() {
-
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -24,15 +23,15 @@ function App() {
       name: '',
       email: '',
   });
-  const navigate = useNavigate();
   const [popupComplete, setPopupComplete] = useState({ isOpen: false, title: '' });
   const [popupError, setPopupError] = useState({ isOpen: false });
   const [isUserSending, setIsUserSending] = useState(false);
   const [isMoviesApiResponded, setIsMoviesApiResponded] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation()
   useEffect(() => {
     handleTokenCheck();
     handleLoadMainInfo();
-    handleLoadMovies();
   }, []);
 
   function handleLoadMainInfo() {
@@ -64,8 +63,10 @@ function App() {
                   mainApi.setToken(localStorage.getItem('jwt'));
                   handleLoadMainInfo();
                   setLoggedIn(true);
-                  if (res.data) {
-                      navigate('/movies', { replace: true });
+                  if (location.pathname === '/sign-in' || location.pathname === '/sign-up') {
+                    navigate('/movies');
+                  } else {
+                    navigate(`${location.pathname}`);
                   }
               }
           })
@@ -94,17 +95,27 @@ function App() {
   function handleRegister({ name, email, password }) {
     setIsUserSending(true)
       auth.register(name, email, password)
-        .then((res) => {
-            if (res.data) {
-                openPopupCompleteRegister(true);
-                navigate("/sign-in", { replace: true });
+      .then((res) => {
+        auth.authorize(email, password)
+        .then((data) => {
+            if (data.token) {
+                mainApi.setToken(data.token);
+                setLoggedIn(true);
+                handleLoadMainInfo();
+                navigate('/movies', { replace: true });
+                openPopupCompleteRegister();
             }
         })
         .catch((err) => {
-            console.log(err);
-            openPopupError();
+          console.log(err);
+          openPopupError();
         })
-        .finally(() => setIsUserSending(false));
+      })
+      .catch((err) => {
+          console.log(err);
+          openPopupError();
+      })
+      .finally(() => setIsUserSending(false));
   }
 
   function handleUpdateUser({ name, email }) {
@@ -150,8 +161,6 @@ function App() {
     .catch((err) => console.log(err));
   }
 
-  
-
   function openPopupCompleteRegister() {
     setPopupComplete({
       isOpen: true,
@@ -179,7 +188,13 @@ function App() {
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path='/' element={ <Main /> }/>
+          <Route
+            path='/'
+            element={ 
+              <Main 
+                loggedIn={loggedIn}
+              />
+              }/>
 
           <Route
             path='/sign-up'
@@ -222,6 +237,7 @@ function App() {
                 handleSaveCard={handleSaveCard}
                 userMovies={userMovies}
                 handleDeleteCard={handleDeleteCard}
+                handleLoadMovies={handleLoadMovies}
               />
             }
           />
@@ -232,6 +248,7 @@ function App() {
               <ProtectedRouteElement
                 element={ Profile }
                 loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
                 handleUpdateUser={handleUpdateUser}
               />
             }
